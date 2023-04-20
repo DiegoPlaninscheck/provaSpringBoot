@@ -21,6 +21,6 @@ public class Pedido {
     @ManyToOne
     private Cliente cliente;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private EnderecoEntrega endereco;
 }

@@ -1,5 +1,6 @@
 package com.example.provaSpringBoot.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,5 +16,6 @@ public class EnderecoEntrega {
     private Endereco endereco;
 
     @OneToOne(mappedBy = "endereco")
+    @JsonIgnore
     private Pedido pedido;
 }

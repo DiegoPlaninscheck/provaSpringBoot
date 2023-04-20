@@ -3,8 +3,11 @@ package com.example.provaSpringBoot.controller;
 import com.example.provaSpringBoot.model.dto.PedidoDTO;
 import com.example.provaSpringBoot.model.entity.EnderecoEntrega;
 import com.example.provaSpringBoot.model.entity.Pedido;
+import com.example.provaSpringBoot.model.entity.ProdutoPedido;
 import com.example.provaSpringBoot.service.EnderecoEntregaService;
 import com.example.provaSpringBoot.service.PedidoService;
+import com.example.provaSpringBoot.service.ProdutoPedidoService;
+import com.example.provaSpringBoot.service.ProdutoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -24,6 +27,8 @@ public class PedidoController {
     private PedidoService pedidoService;
     private EnderecoEntregaService enderecoEntregaService;
 
+    private ProdutoPedidoService produtoPedidoService;
+
     @GetMapping
     public ResponseEntity<List<Pedido>> findAll() {
         return ResponseEntity.ok(pedidoService.findAll());
@@ -42,7 +47,15 @@ public class PedidoController {
         Pedido pedido = new Pedido();
         BeanUtils.copyProperties(pedidoDTO, pedido);
 
+        System.out.println(pedido);
+
         Pedido pedidoSalvo = pedidoService.save(pedido);
+
+        for(ProdutoPedido produtoPedido : pedidoSalvo.getProdutos()){
+            produtoPedido.setPedido(pedidoSalvo);
+
+            produtoPedidoService.save(produtoPedido);
+        }
 
         EnderecoEntrega enderecoEntrega = pedidoSalvo.getEndereco();
 

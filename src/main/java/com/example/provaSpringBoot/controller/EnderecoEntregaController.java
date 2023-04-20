@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @CrossOrigin
 @AllArgsConstructor
-@RequestMapping("/prova/enderecoEntrega")
+@RequestMapping("/prova/enderecoentrega")
 public class EnderecoEntregaController {
 
     private EnderecoEntregaService enderecoEntregaService;

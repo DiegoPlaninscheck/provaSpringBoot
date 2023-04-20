@@ -3,7 +3,6 @@ package com.example.provaSpringBoot.controller;
 import com.example.provaSpringBoot.model.dto.CartaoCreditoDTO;
 import com.example.provaSpringBoot.model.entity.CartaoCredito;
 import com.example.provaSpringBoot.service.CartaoCreditoService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,7 @@ import java.util.List;
 @Controller
 @CrossOrigin
 @AllArgsConstructor
-@RequestMapping("/prova/cartaoCredito")
+@RequestMapping("/prova/cartaocredito")
 public class CartaoCreditoController {
 
     private CartaoCreditoService cartaoCreditoService;

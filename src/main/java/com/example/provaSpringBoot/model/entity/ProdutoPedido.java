@@ -1,5 +1,6 @@
 package com.example.provaSpringBoot.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,11 +12,12 @@ public class ProdutoPedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private Integer quatidade;
+    private Integer quantidade;
 
     @ManyToOne
     private Produto produto;
 
     @ManyToOne
+    @JsonIgnore
     private Pedido pedido;
 }
