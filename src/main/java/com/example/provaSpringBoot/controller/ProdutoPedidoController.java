@@ -47,6 +47,11 @@ public class ProdutoPedidoController {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado");
         }
         ProdutoPedido produtoPedido = produtoPedidoService.findById(id).get();
+
+        produtoPedidoDTO.setPedido(produtoPedido.getPedido());
+
+        produtoPedidoDTO.setProduto(produtoPedido.getProduto());
+
         BeanUtils.copyProperties(produtoPedidoDTO, produtoPedido);
         produtoPedido.setId(id);
         return ResponseEntity.ok(produtoPedidoService.save(produtoPedido));

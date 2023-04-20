@@ -1,6 +1,8 @@
 package com.example.provaSpringBoot.controller;
 
+import com.example.provaSpringBoot.model.dto.ClienteDTO;
 import com.example.provaSpringBoot.model.dto.FornecedorDTO;
+import com.example.provaSpringBoot.model.entity.Cliente;
 import com.example.provaSpringBoot.model.entity.Fornecedor;
 import com.example.provaSpringBoot.model.entity.Produto;
 import com.example.provaSpringBoot.service.FornecedorService;
@@ -62,6 +64,11 @@ public class FornecedorController {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado");
         }
         Fornecedor fornecedor = fornecedorService.findById(id).get();
+
+        fornecedorDTO.setClientes(fornecedor.getClientes());
+
+        fornecedorDTO.setProdutos(fornecedor.getProdutos());
+
         BeanUtils.copyProperties(fornecedorDTO, fornecedor);
         fornecedor.setId(id);
         return ResponseEntity.ok(fornecedorService.save(fornecedor));

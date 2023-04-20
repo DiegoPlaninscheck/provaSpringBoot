@@ -72,6 +72,13 @@ public class PedidoController {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado");
         }
         Pedido pedido = pedidoService.findById(id).get();
+
+        pedidoDTO.setCliente(pedido.getCliente());
+
+        pedidoDTO.setEndereco(pedido.getEndereco());
+
+        pedidoDTO.setProdutos(pedido.getProdutos());
+
         BeanUtils.copyProperties(pedidoDTO, pedido);
         pedido.setId(id);
         return ResponseEntity.ok(pedidoService.save(pedido));

@@ -46,6 +46,7 @@ public class CartaoCreditoController {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado");
         }
         CartaoCredito cartaoCredito = cartaoCreditoService.findById(id).get();
+
         BeanUtils.copyProperties(cartaoCreditoDTO, cartaoCredito);
         cartaoCredito.setId(id);
         return ResponseEntity.ok(cartaoCreditoService.save(cartaoCredito));

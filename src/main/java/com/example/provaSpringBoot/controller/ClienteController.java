@@ -47,8 +47,13 @@ public class ClienteController {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado");
         }
         Cliente cliente = clienteService.findById(id).get();
+
+        clienteDTO.setEnderecos(cliente.getEnderecos());
+        clienteDTO.setCartao(cliente.getCartao());
+
         BeanUtils.copyProperties(clienteDTO, cliente);
         cliente.setId(id);
+
         return ResponseEntity.ok(clienteService.save(cliente));
     }
 
