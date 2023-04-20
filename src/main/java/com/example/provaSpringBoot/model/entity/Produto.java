@@ -1,8 +1,10 @@
 package com.example.provaSpringBoot.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,5 +21,6 @@ public class Produto {
     private Integer quantidade;
 
     @ManyToMany
-    private List<Fornecedor> fornecedores;
+    @JsonIgnore
+    private List<Fornecedor> fornecedores = new ArrayList<>();
 }

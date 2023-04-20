@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @CrossOrigin
 @AllArgsConstructor
-@RequestMapping("/endereco")
+@RequestMapping("/prova/endereco")
 public class EnderecoController {
 
     private EnderecoService enderecoService;
@@ -34,14 +34,14 @@ public class EnderecoController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> save(EnderecoDTO enderecoDTO) {
+    public ResponseEntity<Object> save(@RequestBody EnderecoDTO enderecoDTO) {
         Endereco endereco = new Endereco();
         BeanUtils.copyProperties(enderecoDTO, endereco);
         return ResponseEntity.ok(enderecoService.save(endereco));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> edit(EnderecoDTO enderecoDTO, @PathVariable(name = "id") Long id) {
+    public ResponseEntity<Object> edit(@RequestBody EnderecoDTO enderecoDTO, @PathVariable(name = "id") Long id) {
         if (!enderecoService.existsById(id)) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado");
         }

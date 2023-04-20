@@ -16,7 +16,7 @@ public class Fornecedor {
     @Column(nullable = false)
     private String cnpj;
 
-    @ManyToMany(mappedBy = "fornecedores")
+    @ManyToMany(mappedBy = "fornecedores", cascade = CascadeType.ALL)
     private List<Produto> produtos;
 
     @ManyToMany

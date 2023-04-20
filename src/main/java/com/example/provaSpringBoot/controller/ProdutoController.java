@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @CrossOrigin
 @AllArgsConstructor
-@RequestMapping("/produto")
+@RequestMapping("/prova/produto")
 public class ProdutoController {
 
     private ProdutoService produtoService;
@@ -35,14 +35,14 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> save(@Valid ProdutoDTO produtoDTO) {
+    public ResponseEntity<Object> save(@Valid @RequestBody ProdutoDTO produtoDTO) {
         Produto produto = new Produto();
         BeanUtils.copyProperties(produtoDTO, produto);
         return ResponseEntity.ok(produtoService.save(produto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> edit(@Valid ProdutoDTO produtoDTO, @PathVariable(name = "id") Long id) {
+    public ResponseEntity<Object> edit(@Valid @RequestBody ProdutoDTO produtoDTO, @PathVariable(name = "id") Long id) {
         if (!produtoService.existsById(id)) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado");
         }

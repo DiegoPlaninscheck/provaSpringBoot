@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @CrossOrigin
 @AllArgsConstructor
-@RequestMapping("/enderecoEntrega")
+@RequestMapping("/prova/enderecoEntrega")
 public class EnderecoEntregaController {
 
     private EnderecoEntregaService enderecoEntregaService;
@@ -34,14 +34,14 @@ public class EnderecoEntregaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> save(EnderecoEntregaDTO enderecoEntregaDTO) {
+    public ResponseEntity<Object> save(@RequestBody EnderecoEntregaDTO enderecoEntregaDTO) {
         EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
         BeanUtils.copyProperties(enderecoEntregaDTO, enderecoEntrega);
         return ResponseEntity.ok(enderecoEntregaService.save(enderecoEntrega));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> edit(EnderecoEntregaDTO enderecoEntregaDTO, @PathVariable(name = "id") Long id) {
+    public ResponseEntity<Object> edit(@RequestBody EnderecoEntregaDTO enderecoEntregaDTO, @PathVariable(name = "id") Long id) {
         if (!enderecoEntregaService.existsById(id)) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado");
         }
