@@ -5,6 +5,7 @@ import com.example.provaSpringBoot.model.entity.Fornecedor;
 import com.example.provaSpringBoot.model.entity.Produto;
 import com.example.provaSpringBoot.service.FornecedorService;
 import com.example.provaSpringBoot.service.ProdutoService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class FornecedorController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> save(@RequestBody FornecedorDTO fornecedorDTO) {
+    public ResponseEntity<Object> save(@Valid @RequestBody FornecedorDTO fornecedorDTO) {
         Fornecedor fornecedor = new Fornecedor();
         BeanUtils.copyProperties(fornecedorDTO, fornecedor);
 
@@ -56,7 +57,7 @@ public class FornecedorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> edit(@RequestBody FornecedorDTO fornecedorDTO, @PathVariable(name = "id") Long id) {
+    public ResponseEntity<Object> edit(@Valid @RequestBody FornecedorDTO fornecedorDTO, @PathVariable(name = "id") Long id) {
         if (!fornecedorService.existsById(id)) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não encontrado");
         }

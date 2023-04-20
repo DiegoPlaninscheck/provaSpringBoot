@@ -1,7 +1,9 @@
 package com.example.provaSpringBoot.controller;
 
 import com.example.provaSpringBoot.model.dto.PedidoDTO;
+import com.example.provaSpringBoot.model.entity.EnderecoEntrega;
 import com.example.provaSpringBoot.model.entity.Pedido;
+import com.example.provaSpringBoot.service.EnderecoEntregaService;
 import com.example.provaSpringBoot.service.PedidoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.List;
 public class PedidoController {
 
     private PedidoService pedidoService;
+    private EnderecoEntregaService enderecoEntregaService;
 
     @GetMapping
     public ResponseEntity<List<Pedido>> findAll() {
@@ -38,7 +41,16 @@ public class PedidoController {
     public ResponseEntity<Object> save(@Valid @RequestBody PedidoDTO pedidoDTO) {
         Pedido pedido = new Pedido();
         BeanUtils.copyProperties(pedidoDTO, pedido);
-        return ResponseEntity.ok(pedidoService.save(pedido));
+
+        Pedido pedidoSalvo = pedidoService.save(pedido);
+
+        EnderecoEntrega enderecoEntrega = pedidoSalvo.getEndereco();
+
+        enderecoEntrega.setPedido(pedidoSalvo);
+
+        enderecoEntregaService.save(enderecoEntrega);
+
+        return ResponseEntity.ok(pedidoService.save(pedidoSalvo));
     }
 
     @PutMapping("/{id}")
