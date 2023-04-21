@@ -48,8 +48,13 @@ public class ClienteController {
         }
         Cliente cliente = clienteService.findById(id).get();
 
-        clienteDTO.setEnderecos(cliente.getEnderecos());
-        clienteDTO.setCartao(cliente.getCartao());
+        if (clienteDTO.getCartao() == null && clienteDTO.getEnderecos() == null) {
+            cliente.setCartao(null);
+            cliente.setEnderecos(null);
+        } else {
+            clienteDTO.setEnderecos(cliente.getEnderecos());
+            clienteDTO.setCartao(cliente.getCartao());
+        }
 
         BeanUtils.copyProperties(clienteDTO, cliente);
         cliente.setId(id);

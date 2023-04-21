@@ -48,9 +48,15 @@ public class ProdutoPedidoController {
         }
         ProdutoPedido produtoPedido = produtoPedidoService.findById(id).get();
 
-        produtoPedidoDTO.setPedido(produtoPedido.getPedido());
+        if(produtoPedidoDTO.getPedido() == null && produtoPedidoDTO.getPedido() == null){
+            produtoPedido.setPedido(null);
+            produtoPedido.setProduto(null);
+        } else {
+            produtoPedidoDTO.setPedido(produtoPedido.getPedido());
 
-        produtoPedidoDTO.setProduto(produtoPedido.getProduto());
+            produtoPedidoDTO.setProduto(produtoPedido.getProduto());
+        }
+
 
         BeanUtils.copyProperties(produtoPedidoDTO, produtoPedido);
         produtoPedido.setId(id);

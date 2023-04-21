@@ -51,7 +51,7 @@ public class PedidoController {
 
         Pedido pedidoSalvo = pedidoService.save(pedido);
 
-        for(ProdutoPedido produtoPedido : pedidoSalvo.getProdutos()){
+        for (ProdutoPedido produtoPedido : pedidoSalvo.getProdutos()) {
             produtoPedido.setPedido(pedidoSalvo);
 
             produtoPedidoService.save(produtoPedido);
@@ -73,11 +73,18 @@ public class PedidoController {
         }
         Pedido pedido = pedidoService.findById(id).get();
 
-        pedidoDTO.setCliente(pedido.getCliente());
+        if (pedidoDTO.getCliente() == null && pedidoDTO.getProdutos() == null && pedidoDTO.getEndereco() == null) {
+            pedido.setCliente(null);
+            pedido.setEndereco(null);
+            pedido.setProdutos(null);
+        } else {
+            pedidoDTO.setCliente(pedido.getCliente());
 
-        pedidoDTO.setEndereco(pedido.getEndereco());
+            pedidoDTO.setEndereco(pedido.getEndereco());
 
-        pedidoDTO.setProdutos(pedido.getProdutos());
+            pedidoDTO.setProdutos(pedido.getProdutos());
+        }
+
 
         BeanUtils.copyProperties(pedidoDTO, pedido);
         pedido.setId(id);

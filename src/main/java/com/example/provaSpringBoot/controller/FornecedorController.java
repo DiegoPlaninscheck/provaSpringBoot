@@ -47,7 +47,7 @@ public class FornecedorController {
 
         Fornecedor fornecedorSalvo = fornecedorService.save(fornecedor);
 
-        for(Produto produto : fornecedorSalvo.getProdutos()){
+        for (Produto produto : fornecedorSalvo.getProdutos()) {
             List<Fornecedor> fornecedores = produto.getFornecedores();
             fornecedores.add(fornecedorSalvo);
             produto.setFornecedores(fornecedores);
@@ -65,9 +65,14 @@ public class FornecedorController {
         }
         Fornecedor fornecedor = fornecedorService.findById(id).get();
 
-        fornecedorDTO.setClientes(fornecedor.getClientes());
+        if (fornecedorDTO.getClientes() == null && fornecedorDTO.getProdutos() == null) {
+            fornecedor.setClientes(null);
+            fornecedor.setProdutos(null);
+        } else {
+            fornecedorDTO.setClientes(fornecedor.getClientes());
 
-        fornecedorDTO.setProdutos(fornecedor.getProdutos());
+            fornecedorDTO.setProdutos(fornecedor.getProdutos());
+        }
 
         BeanUtils.copyProperties(fornecedorDTO, fornecedor);
         fornecedor.setId(id);
